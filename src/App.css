@@ -1,9 +1,4 @@
-main {
-    width: 100%;
-    margin-top: var(--header-height);
-    min-height: calc(100vh - var(--header-height));
-}
-
 .web-container {
     background-color: #444;
 }
+

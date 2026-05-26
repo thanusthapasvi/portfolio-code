@@ -1,16 +1,10 @@
 :root {
     --header-height: 3.5rem;
-    
-    --accent: #aa3bff;
-    --accent-bg: rgba(170, 59, 255, 0.1);
-    --accent-border: rgba(170, 59, 255, 0.5);
-    --social-bg: rgba(244, 243, 236, 0.5);
-    --shadow:
-        rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-    --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-    --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-    --mono: ui-monospace, Consolas, monospace;
+    --accent: hsl(190, 95%, 60%);
+    --accent-dark: hsl(190, 100%, 75%);
+    --accent-bg: hsl(190, 100%, 80%);
+    --accent-border: hsl(190, 100%, 50%);
 }
 
 * {
@@ -18,8 +12,80 @@
     margin: 0;
     box-sizing: border-box;
 }
-body, html, #root, .web-container {
+
+body,
+html,
+#root,
+.web-container {
     width: 100%;
     min-height: 100vh;
+}
+
+main {
+    width: 100%;
+    padding-top: var(--header-height);
+    min-height: 100vh;
+}
+
+section {
+    width: 100%;
+    min-height: calc(100vh - var(--header-height));
     background-color: black;
+    color: white;
+}
+.button-box {
+    width: clamp(300px, 100%, 500px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+
+    & button {
+        font-size: calc(var(--font) + 0.5rem);
+    }
+}
+.btn {
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+
+}
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grad-text {
+    font-size: inherit;
+    background: linear-gradient(90deg, #00c6ff, #0072ff, #8e2de2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.shining {
+    position: relative;
+    overflow: hidden;
+}
+
+.shining::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -150%;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 200, 0.15) 50%, transparent 60%);
+    animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translate(0%, 0%);
+    }
+
+    100% {
+        transform: translate(150%, -150%);
+    }
 }

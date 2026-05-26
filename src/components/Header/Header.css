@@ -4,8 +4,9 @@ header {
     left: 0;
     width: 100%;
     height: var(--header-height);
-    background-color: black;
+    background-color: #1D1D1D;
     justify-content: center;
+    z-index: 999;
 }
 header, nav {
     display: flex;
@@ -19,7 +20,102 @@ nav {
 }
 
 nav a {
-    color: white;
+    width: 100px;
+    height: var(--header-height);
+    position: relative;
+    color: #ccc;
     font-weight: 700;
     text-decoration: none;
+    background-color: #1D1D1D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2 ease;
+}
+nav a:hover {
+    color: var(--accent);
+}
+
+.span-active {
+    color: white;
+    text-shadow: 0 0 0.3rem var(--accent);
+}
+
+.nav-ani, .city-pic-box, .shadow-pic-box, .city-pic, .shadow-pic {
+    position: absolute;
+    width: 100px;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+.nav-ani, .city-pic-box, .shadow-pic-box {
+    height: 100%;
+}
+.city-pic, .shadow-pic {
+    width: 110%;
+    height: auto;
+    z-index: -1;
+    display: none;
+}
+.city-pic {
+    top: 95%;
+    left: -18px;
+    z-index: -1;
+}
+.shadow-pic {
+    top: calc(95% + 1px);
+    left: -16px;
+    z-index: -2;
+}
+
+.nav-ani.nav-active .city-pic, .nav-ani.nav-active .shadow-pic {
+    display: block;
+    animation: city-ani 1s ease both;
+}
+
+.nav-ani.nav-active .city-pic:nth-last-of-type(4), .nav-ani.nav-active .shadow-pic:nth-last-of-type(4) {
+    animation-delay: 0s;
+}
+.nav-ani.nav-active .city-pic:nth-last-of-type(3), .nav-ani.nav-active .shadow-pic:nth-last-of-type(3) {
+    animation-delay: 0.15s;
+}
+.nav-ani.nav-active .city-pic:nth-last-of-type(2), .nav-ani.nav-active .shadow-pic:nth-last-of-type(2) {
+    animation-delay: 0.3s;
+}
+.nav-ani.nav-active .city-pic:nth-last-of-type(1), .nav-ani.nav-active .shadow-pic:nth-last-of-type(1) {
+    animation-delay: 0.45s;
+}
+
+@keyframes city-ani {
+    0% {
+        height: 10px;
+        transform: translateY(-150%);
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+    80% {
+        height: 55px;
+        transform: translateY(5%);
+    }
+    100% {
+        height: 40px;
+        transform: translateY(0%);
+    }
+}
+
+@media(max-width: 400px) {
+    nav a {
+        font-size: 1.2rem;
+    }
+    .city-pic, .shadow-pic {
+        width: 100%;
+    }
+    .city-pic {
+        left: -15px;
+    }
+    .shadow-pic {
+        left: -13px;
+    }
 }
