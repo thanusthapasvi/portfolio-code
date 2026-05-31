@@ -1,16 +1,18 @@
 :root {
     --header-height: 3.5rem;
 
-    --accent: hsl(190, 95%, 60%);
-    --accent-dark: hsl(190, 100%, 75%);
+    --text: hsl(190, 100%, 90%);
+
+    --accent: hsl(190, 90%, 60%);
+    --accent-dark: hsl(190, 95%, 30%);
     --accent-bg: hsl(190, 100%, 80%);
-    --accent-border: hsl(190, 100%, 50%);
 }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    color-scheme: dark;
 }
 
 body,
@@ -26,12 +28,19 @@ main {
     padding-top: var(--header-height);
     min-height: 100vh;
 }
-
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 section {
     width: 100%;
     min-height: calc(100vh - var(--header-height));
     background-color: black;
-    color: white;
+    color: var(--text);
+}
+.page-heading {
+    font-size: 3.5rem;
 }
 .button-box {
     width: clamp(300px, 100%, 500px);
@@ -39,25 +48,83 @@ section {
     align-items: center;
     justify-content: space-between;
     margin-top: 0.5rem;
-
-    & button {
-        font-size: calc(var(--font) + 0.5rem);
+}
+/* Buttons */
+.btn {
+    position: relative;
+    font-size: 1.6rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-weight: 500;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+@property --bg-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+.btn::before, .btn::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+}
+.btn::before {
+    inset: -2px;
+    background-image: linear-gradient(var(--bg-angle), #ff00aa, #ffe600, #00cfff, #7a5cff);
+    animation: 16s linear infinite move-background;
+    z-index: -2;
+}
+.btn::after {
+    inset: 2px;
+    background: black;
+    z-index: -1;
+}
+@keyframes move-background {
+    0% {
+        --bg-angle: 0deg
+    }
+    100% {
+        --bg-angle: 360deg
     }
 }
-.btn {
-    padding: 0.4rem 0.7rem;
-    border-radius: 999px;
-
+.btn:hover {
+    transform: scale(1.05);
 }
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.btn:active {
+    transform: translateY(3px) scale(0.95);
+}
+
+.btn-primary {
+    color: black;
+}
+.btn-primary:hover {
+    color: white;
+}
+.btn-primary::after {
+    background-color: var(--accent);
+}
+.btn-primary:hover::after {
+    background-color: var(--accent-dark);
+}
+
+.btn-secondary {
+    color: var(--accent);
+}
+.btn-secondary:hover {
+    color: white;
+}
+.btn-primary:hover::before, .btn-secondary:hover::before {
+    box-shadow: 0 0 0.5rem 0.2rem rgba(0, 255, 255, 0.3);
+    animation: 3s linear infinite move-background;
 }
 
 .grad-text {
     font-size: inherit;
-    background: linear-gradient(90deg, #00c6ff, #0072ff, #8e2de2);
+    background: linear-gradient(90deg, var(--accent), #2a8aff, #a237ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -78,6 +145,7 @@ section {
     height: 150%;
     background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 200, 0.15) 50%, transparent 60%);
     animation: shine 3s linear infinite;
+    z-index: 10;
 }
 
 @keyframes shine {
@@ -87,5 +155,11 @@ section {
 
     100% {
         transform: translate(150%, -150%);
+    }
+}
+
+@media(max-width: 600px) {
+    .page-heading {
+        font-size: 2.5rem;
     }
 }
